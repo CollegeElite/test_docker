@@ -3,7 +3,7 @@ name: Docker Deploy dev branch to GitHub Pages
 on:
   push:
     branches:
-      - dev  # Correspond à production
+      - staging  # Correspond à production
 
 jobs:
   deploy:
@@ -24,12 +24,12 @@ jobs:
       # 3. Puller l’image Docker
       - name: Pull Docker Image
         run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/testdocker:dev
+          docker pull ${{ secrets.DOCKER_USERNAME }}/testdocker:staging
 
       # 4. Extraire les fichiers de l’image
       - name: Extract Files from Docker Image
         run: |
-          docker create --name temp-container ${{ secrets.DOCKER_USERNAME }}/testdocker:dev
+          docker create --name temp-container ${{ secrets.DOCKER_USERNAME }}/testdocker:staging
           docker cp temp-container:/usr/share/nginx/html .
           docker rm temp-container
 
