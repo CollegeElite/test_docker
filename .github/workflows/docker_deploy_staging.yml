@@ -1,4 +1,4 @@
-name: Docker Deploy dev branch to GitHub Pages
+name: Docker Deploy Staging branch to GitHub Pages
 
 on:
   push:
