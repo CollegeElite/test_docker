@@ -39,4 +39,4 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_dir: ./ 
-          destination_dir: /staging # Déploie dans le repertoire staging pour l'envrionnement staging
+          destination_dir: ./staging # Déploie dans le repertoire staging pour l'envrionnement staging
