@@ -24,12 +24,12 @@ jobs:
       # 3. Puller l’image Docker
       - name: Pull Docker Image
         run: |
-          docker pull username/my-static-app:${{ github.ref_name }}
+          docker pull ${{ secrets.DOCKER_USERNAME }}/testdocker:latest
 
       # 4. Extraire les fichiers de l’image
       - name: Extract Files from Docker Image
         run: |
-          docker create --name temp-container username/my-static-app:${{ github.ref_name }}
+          docker create --name temp-container ${{ secrets.DOCKER_USERNAME }}/testdocker:latest
           docker cp temp-container:/usr/share/nginx/html .
           docker rm temp-container
 
