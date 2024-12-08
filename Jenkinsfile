@@ -13,11 +13,11 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
-                        sh 'docker build -t test_docker:dev -f Dockerfile.dev .'
+                        sh 'docker build -t test_docker:dev -f dockerfile.dev .'
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'docker build -t test_docker:staging -f Dockerfile.staging .'
+                        sh 'docker build -t test_docker:staging -f dockerfile.staging .'
                     } else if (env.BRANCH_NAME == 'prod') {
-                        sh 'docker build -t test_docker:prod -f Dockerfile.prod .'
+                        sh 'docker build -t test_docker:prod -f dockerfile.prod .'
                     }
                 }
             }
