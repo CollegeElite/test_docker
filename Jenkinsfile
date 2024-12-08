@@ -34,9 +34,9 @@ pipeline {
         stage('Deploy to GitHub Pages') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'prod') {
+                    if (env.BRANCH_NAME == 'dev') {
                         sh '''
-                        docker run --rm test_docker:prod
+                        docker run --rm test_docker:dev
                         git checkout gh-pages
                         cp -R /usr/share/nginx/html/* .
                         git add .
