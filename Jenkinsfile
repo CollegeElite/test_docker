@@ -58,12 +58,13 @@ pipeline {
                         git commit -m "Deploy dev branch to /dev on GitHub Pages"
                         '''
                         
-                       // Use credentials for Git push
-                         withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
-                    sh '''
-                    git push https://$GIT_USER:$GIT_PASS@github.com/CollegeElite/test_docker.git gh-pages
-                    '''
-                        }
+                        // Push to GitHub Pages with credentials
+                       withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                        sh '''
+                        GIT_PASS=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$GIT_PASS'))")
+                        git push https://$GIT_USER:$GIT_PASS@github.com/CollegeElite/test_docker.git gh-pages
+                        '''
+                    }
                     }
                 }
             }
