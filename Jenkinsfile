@@ -59,7 +59,7 @@ pipeline {
                         '''
                         
                         // Push to GitHub Pages with credentials
-                        withCredentials([usernamePassword(credentialsId: 'your-credentials-id', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                        withCredentials([usernamePassword(usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
                             sh '''
                             git push https://$GIT_USER:$GIT_PASS@github.com/CollegeElite/test_docker.git gh-pages
                             '''
