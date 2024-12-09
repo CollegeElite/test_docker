@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-       stage('Deploy to GitHub Pages') {
+        stage('Deploy to GitHub Pages') {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
@@ -41,19 +41,29 @@ pipeline {
                         docker cp $container_id:/usr/share/nginx/html ./deploy
                         docker rm $container_id
                         
-                        # Configure Git
-                        git config --global user.name "CollegeElite"
-                        git config --global user.email "oussama.derbel@institutelite-edu.ca"
+                        # Remove any .git folder inside deploy
+                        rm -rf ./deploy/.git
                         
-                        # Checkout the gh-pages branch
+                        # Configure Git
+                        git config --global user.name "Your Name"
+                        git config --global user.email "your-email@example.com"
+                        
+                        # Checkout or create the gh-pages branch
                         git checkout gh-pages || git checkout -b gh-pages
                         
-                        # Copy the deployment files and push to gh-pages
-                        cp -R ./deploy/* .
+                        # Create or update the /dev directory in gh-pages
+                        mkdir -p ./dev
+                        cp -R ./deploy/* ./dev/
                         git add .
-                        git commit -m "Deploy from dev branch to GitHub Pages"
-                        git push origin gh-pages
+                        git commit -m "Deploy dev branch to /dev on GitHub Pages"
                         '''
+                        
+                        // Push to GitHub Pages with credentials
+                        withCredentials([usernamePassword(credentialsId: 'your-credentials-id', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                            sh '''
+                            git push https://$GIT_USER:$GIT_PASS@github.com/CollegeElite/test_docker.git gh-pages
+                            '''
+                        }
                     }
                 }
             }
