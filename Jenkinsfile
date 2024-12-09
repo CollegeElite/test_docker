@@ -45,8 +45,8 @@ pipeline {
                         rm -rf ./deploy/.git
                         
                         # Configure Git
-                        git config --global user.name "Your Name"
-                        git config --global user.email "your-email@example.com"
+                        git config --global user.name "CollegeElite"
+                        git config --global user.email "oussama.derbel@intitutelite-edu.ca"
                         
                         # Checkout or create the gh-pages branch
                         git checkout gh-pages || git checkout -b gh-pages
